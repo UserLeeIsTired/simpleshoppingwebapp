@@ -84,9 +84,9 @@ const MainMenu = () => {
       <div className='bg-[#016e4b] h-[72px] justify-between flex items-center flex-row'>
         <div className='flex flex-row items-center ml-[60px]'>
           <button>
-            <img src="https://www.tntsupermarket.com/tnt-en-logo-eKK.png"
+            <img src='/images/logo.png'
               alt="This is the main logo" 
-              className="w-[170px]"
+              className="w-[200px]"
               onClick={() => router.push('/')}
             />
           </button>
@@ -130,7 +130,7 @@ const MainMenu = () => {
           <BottomFlyoutLink href="#" FlyoutContent={Category}>Category</BottomFlyoutLink>
           <BottomFlyoutLink href="#">Hot Deals</BottomFlyoutLink>
           <BottomFlyoutLink href="#">Group Orders</BottomFlyoutLink>
-          <BottomFlyoutLink href="#">T&T Private Label</BottomFlyoutLink>
+          <BottomFlyoutLink href="#">I&I Private Label</BottomFlyoutLink>
           <BottomFlyoutLink href="#">Gift Ideas</BottomFlyoutLink>
         </div>
       </div>
