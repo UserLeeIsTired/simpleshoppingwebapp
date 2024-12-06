@@ -140,11 +140,20 @@ const MainMenu = () => {
 
 const Category = ({ open }) => {
   return open ? (
-    <div className="absolute bg-white mt-[10px] left-1 h-[100px] w-[500px] rounded-r-lg rounded-bl-lg rounded-br-lg">
-      <ul className="flex flex-row h-[100px] justify-center items-center">
-        <a href="#" className="block px-4 mr-4 py-2 hover:underline">Our Story</a>
-        <a href="#" className="block px-4 mr-4 py-2 hover:underline">Our Commitment</a>
-        <a href="#" className="block px-4 py-2 hover:underline">Our Community</a>
+    <div className="absolute bg-white mt-[10px] left-1 h-[100px] w-[500px] rounded-r-lg rounded-bl-lg rounded-br-lg flex justify-center">
+      <ul className="flex flex-row h-[100px] w-[70%] justify-between items-center">
+        <div className='flex justify-center items-center flex-col'>
+          <img src='./images/all.png' className="w-[60px] h-[60px] mr-4"/>
+          <button className="block text-black px-4 mr-4 py-2 hover:underline">All</button>
+        </div>
+        <div className='flex justify-center items-center flex-col'>
+          <img src='./images/code.png' className="w-[60px] h-[60px] mr-4"/>
+          <button className="block text-black px-4 mr-4 py-2 hover:underline">Code</button>
+        </div>
+        <div className='flex justify-center items-center flex-col'>
+          <img src='./images/music.png' className="w-[60px] h-[60px] mr-4"/>
+          <button className="block text-black px-4 mr-4 py-2 hover:underline">Music</button>
+        </div>
       </ul>
     </div>
   ) : <></>;
