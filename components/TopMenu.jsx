@@ -1,10 +1,11 @@
 "use client"
-import React, { useState } from 'react';
+import React, { use, useState } from 'react';
 import { SlArrowUp, SlArrowDown } from "react-icons/sl";
 import { FaSearch, FaUserCircle, FaShoppingCart } from "react-icons/fa";
 import { CiLocationOn } from "react-icons/ci";
 import { IoMdNotifications } from "react-icons/io";
 import { useRouter } from 'next/navigation';
+import { useUserAuth } from '@/_utils/auth-context';
 
 
 const FlyoutLink = ({ children, href, FlyoutContent }) => {
@@ -75,10 +76,12 @@ const AboutUs = ({ open }) => {
   ) : <></>;
 };
 
-const MainMenu = () => {
+const MainMenu = ({}) => {
+
   const [searchText, setSearchText] = useState('');
   const [cartCount, setCartCount] = useState(0);
   const router = useRouter();
+  const {  user, gitHubSignIn } = useUserAuth();
   return (
     <div>
       <div className='bg-[#016e4b] h-[72px] justify-between flex items-center flex-row'>
@@ -111,8 +114,10 @@ const MainMenu = () => {
             <p className='underline w-[24px] h-[24px]'>L3T</p>
           </div>
           <div className='flex flex-row justify-center items-center ml-10'>
-            <FaUserCircle className='h-[24px] w-[24px]'/>
-            <p className='h-[24px]'>Log in/ Sign Up</p>
+            <button className='flex flex-row justify-center items-center ml-10' onClick={user ? () => router.push('/account') : () => gitHubSignIn()}>
+              <FaUserCircle className='h-[24px] w-[24px]'/>
+              <p className='h-[24px]'>{user ? user.displayName : "Log in/ Sign Up"}</p>
+            </button>
           </div>
           <div className="flex justify-center items-center ml-10">
             <IoMdNotifications className='h-[24px] w-[24px]'/>
