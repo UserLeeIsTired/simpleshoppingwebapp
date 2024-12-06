@@ -4,6 +4,7 @@ import TopMenu from "../../components/TopMenu";
 import { useUserAuth } from "@/_utils/auth-context";
 import React, { useState } from "react";
 import { useRouter } from 'next/navigation';
+import NotLogin from "@/components/NotLogin";
 
 const ListItem = ({ name, onClick, chosen, setChosen }) => {
   const onPress = () => {
@@ -62,13 +63,16 @@ export default function Page() {
       <div className="flex flex-row bg-gray-200 justify-center">
         <OptionDrawer/>
         <div className="ml-5 bg-white w-[60%] h-[700px] rounded-lg mt-5">
-           <div>
-
+           <div className="flex items-center justify-center">
+              <p className="text-center text-black text-[100px]">Budget not enough, only log out is working</p>
            </div>
         </div>
       </div>
     </main>
     :
-    <></>
+    <main className="w-full h-[600px]">
+      <TopMenu/>
+      <NotLogin/>
+    </main>
   );
 }
