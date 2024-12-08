@@ -46,7 +46,7 @@ const OptionDrawer = () => {
             <ListItem name="My Comments" chosen={chosen} setChosen={setChosen} onClick={() => {}}/>
             <ListItem name="Sign Out" chosen={chosen} setChosen={setChosen} onClick={() => {
               firebaseSignOut();
-              router.push('/');
+              window.location.reload();
             }}/>
 
           </div>
