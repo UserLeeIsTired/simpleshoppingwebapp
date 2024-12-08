@@ -6,7 +6,6 @@ import {
   signOut,
   onAuthStateChanged,
   GithubAuthProvider,
-  createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "./firebase";
  
@@ -19,16 +18,6 @@ export const AuthContextProvider = ({ children }) => {
     const provider = new GithubAuthProvider();
     return signInWithPopup(auth, provider);
   };
-
-  // const emailPasswordSignIn = (email, password) => {
-  //     createUserWithEmailAndPassword(auth, email, password).then((res) => {
-  //     const user = res.user;
-  //     console.log(user);
-  //     return user;
-  //   }).catch((error) => {
-  //     alert(error);
-  //   })
-  // }
  
   const firebaseSignOut = () => {
     return signOut(auth);
