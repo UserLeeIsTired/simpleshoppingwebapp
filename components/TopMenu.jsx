@@ -6,6 +6,7 @@ import { CiLocationOn } from "react-icons/ci";
 import { IoMdNotifications } from "react-icons/io";
 import { useRouter } from 'next/navigation';
 import { useUserAuth } from '@/_utils/auth-context';
+import { useCategoryContext } from '@/_utils/category-context';
 
 
 const FlyoutLink = ({ children, href, FlyoutContent }) => {
@@ -144,18 +145,20 @@ const MainMenu = ({}) => {
 }
 
 const Category = ({ open }) => {
+  const { setSortMethod } = useCategoryContext();
+  const router = useRouter();
   return open ? (
     <div className="absolute bg-white mt-[10px] left-1 h-[100px] w-[500px] rounded-r-lg rounded-bl-lg rounded-br-lg flex justify-center">
       <ul className="flex flex-row h-[100px] w-[70%] justify-between items-center">
-        <button className='flex justify-center items-center flex-col'>
+        <button className='flex justify-center items-center flex-col' onClick={() => {setSortMethod('All'); router.push('/')}}>
           <img src='./images/all.png' className="w-[60px] h-[60px] mr-4"/>
           <p className="block text-black px-4 mr-4 py-2 hover:underline">All</p>
         </button>
-        <button className='flex justify-center items-center flex-col'>
+        <button className='flex justify-center items-center flex-col' onClick={() => {setSortMethod('Code'); router.push('/')}}>
           <img src='./images/code.png' className="w-[60px] h-[60px] mr-4"/>
           <p className="block text-black px-4 mr-4 py-2 hover:underline">Code</p>
         </button>
-        <button className='flex justify-center items-center flex-col'>
+        <button className='flex justify-center items-center flex-col' onClick={() => {setSortMethod('Music'); router.push('/')}}>
           <img src='./images/music.png' className="w-[60px] h-[60px] mr-4"/>
           <p className="block text-black px-4 mr-4 py-2 hover:underline">Music</p>
         </button>

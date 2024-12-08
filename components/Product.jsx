@@ -1,15 +1,26 @@
 "use client"
 import React, { useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
+import { useUserAuth } from "@/_utils/auth-context";
 
 const AmountButton = ({amount, setAmount}) => {
+  const { user } = useUserAuth();
+
   const add = () => {
+    if (!user){
+      alert('You must log in first');
+      return;
+    }
     if (amount < 20){
       setAmount(amount + 1);
     }
   }
 
   const subtract = () => {
+    if (!user){
+      alert('You must log in first');
+      return;
+    }
     if (amount >= 1){
       setAmount(amount - 1);
     }

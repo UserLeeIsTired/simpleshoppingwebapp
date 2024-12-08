@@ -5,12 +5,14 @@ import TopMenu from "../components/TopMenu";
 import React, { useState, useEffect } from "react";
 import { fetchList } from "@/_services/firebase-service";
 import Product from "@/components/Product";
+import { useCategoryContext } from "@/_utils/category-context";
 
 
 export default function Page() {
-  const [items, setItems] = useState([]);
-  const [sortedItems, setSortedItems] = useState([]);
-  const [sortMethod, setSortMethod] = useState('All');
+  const [ items, setItems ] = useState([]);
+  const [ sortedItems, setSortedItems ] = useState([]);
+  const { sortMethod, setSortMethod } = useCategoryContext();
+  
   useEffect(() => {
     const fetchData = async () => {
         const itemsData = await fetchList();
@@ -18,8 +20,21 @@ export default function Page() {
         setSortedItems(itemsData);
     };
     fetchData();
-    }, []);
-    console.log(items);
+    }, []
+  );
+
+  console.log(items);
+
+  useEffect(() => {
+    if (sortMethod == "All"){
+      setSortedItems(items);
+    }else if (sortMethod == "Code"){
+      setSortedItems(items.filter(item => item.type === "Code"));
+    }else if (sortMethod == "Music"){
+      setSortedItems(items.filter(item => item.type === "Music"));
+    }
+  }, [sortMethod]);
+
   return (
     <main>
       <Banner content="Black Friday Points Madness! Earn up to 400 points per item on selected products! | Ends 11/28"/>
