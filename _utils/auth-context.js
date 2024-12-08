@@ -18,7 +18,6 @@ export const AuthContextProvider = ({ children }) => {
     const provider = new GithubAuthProvider();
     return signInWithPopup(auth, provider)
       .then((result) => {
-        console.log("GitHub login successful");
         window.location.reload();
       })
       .catch((error) => {

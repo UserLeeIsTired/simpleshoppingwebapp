@@ -25,7 +25,7 @@ export default function Page() {
         setSortedItems(itemsData);
     };
     fetchData();
-    }, [sortMethod]
+    }, []
   );
 
   useEffect(() => {
