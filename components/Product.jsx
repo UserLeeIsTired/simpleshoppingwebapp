@@ -2,27 +2,32 @@
 import React, { useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
 import { useUserAuth } from "@/_utils/auth-context";
+import { updateItemAmount } from "@/_services/firebase-service";
 
-const AmountButton = ({amount, setAmount}) => {
+const AmountButton = ({amount, setAmount, productId}) => {
   const { user } = useUserAuth();
 
   const add = () => {
-    if (!user){
+    if (!user) {
       alert('You must log in first');
       return;
     }
-    if (amount < 20){
-      setAmount(amount + 1);
+    if (amount < 20) {
+      const newAmount = amount + 1;
+      setAmount(newAmount);
+      updateItemAmount(user.uid, productId, newAmount);
     }
   }
-
+  
   const subtract = () => {
-    if (!user){
+    if (!user) {
       alert('You must log in first');
       return;
     }
-    if (amount >= 1){
-      setAmount(amount - 1);
+    if (amount >= 1) {
+      const newAmount = amount - 1;
+      setAmount(newAmount);
+      updateItemAmount(user.uid, productId, newAmount);
     }
   }
 
@@ -54,8 +59,8 @@ const AmountButton = ({amount, setAmount}) => {
 }
 
 
-const Product = ({ cost, imageURL, name }) => {
-  const [amount, setAmount] = useState(0);
+const Product = ({ cost, imageURL, name, productId, storedAmount }) => {
+  const [amount, setAmount] = useState(storedAmount);
   return (
     <div className="w-[220px] h-[405px] bg-white m-3 border-2 border-gray-300 rounded-2xl">
       <div className="p-3">
@@ -68,7 +73,7 @@ const Product = ({ cost, imageURL, name }) => {
           <p className="text-red-600 font-mono font-bold text-[18px] ">{cost}</p>
         </div>
         <div className="w-full flex items-center justify-center mt-6">
-          <AmountButton amount={amount} setAmount={setAmount}/>
+          <AmountButton amount={amount} setAmount={setAmount} productId={productId}/>
         </div>
       </div>
     </div>

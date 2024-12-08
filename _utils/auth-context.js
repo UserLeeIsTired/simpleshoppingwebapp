@@ -16,7 +16,14 @@ export const AuthContextProvider = ({ children }) => {
  
   const gitHubSignIn = () => {
     const provider = new GithubAuthProvider();
-    return signInWithPopup(auth, provider);
+    return signInWithPopup(auth, provider)
+      .then((result) => {
+        console.log("GitHub login successful");
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error("GitHub login failed: ", error.message);
+      });
   };
  
   const firebaseSignOut = () => {

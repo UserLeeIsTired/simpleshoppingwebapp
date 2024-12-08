@@ -6,12 +6,17 @@ import React, { useState, useEffect } from "react";
 import { fetchList } from "@/_services/firebase-service";
 import Product from "@/components/Product";
 import { useCategoryContext } from "@/_utils/category-context";
+import { getUserItems } from "@/_services/firebase-service";
+import { useUserAuth } from "@/_utils/auth-context";
 
 
 export default function Page() {
   const [ items, setItems ] = useState([]);
   const [ sortedItems, setSortedItems ] = useState([]);
-  const { sortMethod, setSortMethod } = useCategoryContext();
+  const [ userData, setUserData] = useState([]);
+  const { sortMethod } = useCategoryContext();
+  const { user } = useUserAuth();
+
   
   useEffect(() => {
     const fetchData = async () => {
@@ -20,10 +25,18 @@ export default function Page() {
         setSortedItems(itemsData);
     };
     fetchData();
-    }, []
+    }, [sortMethod]
   );
 
-  console.log(items);
+  useEffect(() => {
+    const getUserData = async () => {
+        if (user){
+          const itemsData = await getUserItems(user.uid);
+          setUserData(itemsData);
+        }
+    };
+    getUserData();
+  }, [user]);
 
   useEffect(() => {
     if (sortMethod == "All"){
@@ -45,7 +58,12 @@ export default function Page() {
         </div>
         <div className="flex flex-row w-[90%]">
           {
-            sortedItems.map((item) => <Product key={item.id} imageURL={item.imageURL} cost={item.cost} name={item.name}/>)
+            sortedItems.map((item) => {
+              const foundElement = userData.find(element => element.id === item.id);
+              return(
+                <Product key={item.id} productId={item.id} imageURL={item.imageURL} cost={item.cost} name={item.name} storedAmount={foundElement ? foundElement.amount : 0}/>
+              )
+            })
           }
         </div>
       </div>
